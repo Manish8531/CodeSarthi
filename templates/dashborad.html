@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <section class="dashboard-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Welcome, {{ current_user.username }}!</h2>
+            <p class="text-center lead">Your Lecture Analysis History</p>
+
+            {% if reports %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped shadow-sm rounded">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Video Title</th>
+                                <th scope="col">YouTube ID</th>
+                                <th scope="col">Analyzed On</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for report in reports %}
+                            <tr>
+                                <th scope="row">{{ loop.index }}</th>
+                                <td>{{ report.video_title if report.video_title else 'N/A' }}</td>
+                                <td><a href="https://www.youtube.com/watch?v={{ report.video_id }}" target="_blank">{{ report.video_id }}</a></td>
+                                <td>{{ report.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>
+                                    <a href="{{ url_for('download_report', report_id=report.id) }}" class="btn btn-sm btn-outline-primary me-2"><i class="fas fa-download me-1"></i>PDF</a>
+                                    {# You could add a "View Report" link here that loads the data into results.html #}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center" role="alert">
+                    You haven't analyzed any lectures yet. Go to the <a href="{{ url_for('home') }}">homepage</a> to get started!
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

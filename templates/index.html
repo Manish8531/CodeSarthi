@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Code Helping Buddy - Understand Your Code{% endblock %}
+
+{% block content %}
+
+    <section class="hero-section d-flex align-items-center justify-content-center text-center" id="decode-section">
+        <div class="container">
+            <h1 class="display-3 animate__animated animate__fadeInDown">Code Ko Samjho, Coding Mein Jeeto — Your AI Code Buddy!</h1>
+            <p class="lead animate__animated animate__fadeInUp animate__delay-0.5s">Unlock complex code with simple explanations, powerful mnemonics, and core concepts. Learn smarter, not harder.</p>
+
+            <div class="code-input-area animate__animated animate__zoomIn animate__delay-1s">
+                <form id="code-form" method="POST">
+                    <div class="hero-input-group flex-column">
+                        <textarea class="form-control mb-3" id="user_code" name="user_code" rows="12" placeholder="Paste your Python, JavaScript, Java, C++ or any other code here to get instant insights..." required></textarea>
+                        <button type="submit" class="btn btn-decode">Analyze Code <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </form>
+                <div id="loading-spinner" class="mt-4 text-center d-none">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2 text-white">Analyzing your code, please wait...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works-section py-5" id="how-it-works-section">
+        <div class="container">
+            <h2 class="text-center mb-5 animate__animated animate__fadeIn">How It Works: Simple Steps to Code Mastery</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4 animate__animated animate__fadeInLeft animate__delay-0.5s">
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fas fa-paste"></i></div>
+                        <h3>1. Paste Your Code</h3>
+                        <p>Simply copy and paste any code snippet into the editor above. We support multiple programming languages.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-0.8s">
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fas fa-cogs"></i></div>
+                        <h3>2. Get Instant Analysis</h3>
+                        <p>Our AI processes your code, breaking down its logic and purpose in seconds.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate__animated animate__fadeInRight animate__delay-1.1s">
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>3. Learn & Master</h3>
+                        <p>Receive clear explanations, memory aids, and focus on the 20% core concepts for 80% understanding.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section py-5" id="features-section">
+        <div class="container">
+            <h2 class="text-center mb-5 animate__animated animate__fadeIn">Why VidyaVeer Code Buddy? Your Learning Advantage.</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 d-flex mb-4 animate__animated animate__fadeInLeft animate__delay-0.5s">
+                    <div class="feature-card">
+                        <i class="fas fa-lightbulb icon"></i>
+                        <h3>Deep Concept Clarity</h3>
+                        <p>Go beyond syntax. Understand the 'why, what, how, and where' of your code with simple, easy-to-grasp explanations.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 d-flex mb-4 animate__animated animate__fadeInUp animate__delay-0.8s">
+                    <div class="feature-card">
+                        <i class="fas fa-brain icon"></i>
+                        <h3>Effective Memory Mnemonics</h3>
+                        <p>Boost your retention! Get creative memory aids and tricks tailored to help you recall complex coding patterns and syntax effortlessly.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 d-flex mb-4 animate__animated animate__fadeInDown animate__delay-1.1s">
+                    <div class="feature-card">
+                        <i class="fas fa-code-branch icon"></i>
+                        <h3>80/20 Rule Applied</h3>
+                        <p>Focus on what matters. Identify the essential 20% of your code's concepts that unlock understanding of the remaining 80%.</p>
+                    * **Add Animate.css:** For subtle animations on scroll or load, we can include Animate.css.
+                        `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>`
+                        (This needs to be added in `base.html` `<head>`)
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 d-flex mb-4 animate__animated animate__fadeInRight animate__delay-1.4s">
+                    <div class="feature-card">
+                        <i class="fas fa-book-reader icon"></i>
+                        <h3>Accelerated Learning</h3>
+                        <p>Transform your learning curve. Get immediate, actionable insights into any code snippet, turning confusion into clarity instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="results-display-section py-5 d-none" id="results-display-section"> {# Initially hidden #}
+        <div class="container">
+            <h2 class="text-center mb-5 animate__animated animate__fadeIn">Your Code Analysis: Deeper Understanding</h2>
+            <div id="analysis-results-container" class="mt-4 animate__animated animate__fadeInUp">
+                <div class="card analysis-card mb-4">
+                    <div class="card-header">
+                        <h3><i class="fas fa-info-circle me-2"></i>Concept Explanation: Why, What, How, Where</h3>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Why:</strong> <span id="concept-why"></span></p>
+                        <p><strong>What:</strong> <span id="concept-what"></span></p>
+                        <p><strong>How:</strong> <span id="concept-how"></span></p>
+                        <p><strong>Where:</strong> <span id="concept-where"></span></p>
+                    </div>
+                </div>
+
+                <div class="card analysis-card mb-4">
+                    <div class="card-header">
+                        <h3><i class="fas fa-brain me-2"></i>Memory Mnemonics</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul id="mnemonics-list"></ul>
+                    </div>
+                </div>
+
+                <div class="card analysis-card mb-4">
+                    <div class="card-header">
+                        <h3><i class="fas fa-cogs me-2"></i>Core 20% Concepts (for 80% Understanding)</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul id="core-concepts-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

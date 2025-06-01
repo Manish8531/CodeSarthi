@@ -1,0 +1,522 @@
+/* General Body and HTML Styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    /* Soft gradient background for a positive vibe */
+    background: linear-gradient(135deg, #e0f2f7 0%, #c1e1ec 100%); /* Light blue to a slightly darker blue */
+    color: #333333; /* Darker text for readability on light background */
+    line-height: 1.7; /* Improved readability */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    color: #2c3e50; /* Darker, professional heading color */
+    font-weight: 700;
+}
+
+/* Glassmorphism Effect Mixin (for reusability) */
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.2); /* Slightly transparent white */
+    backdrop-filter: blur(10px); /* Blur effect */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Navbar Styling */
+.navbar {
+    background: rgba(255, 255, 255, 0.7); /* Lighter, more transparent navbar */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #007bff !important; /* Bright primary blue */
+    letter-spacing: -0.5px;
+}
+
+.navbar-nav .nav-link {
+    color: #555555 !important; /* Darker text for links */
+    font-weight: 600;
+    margin-left: 25px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff !important; /* Bright primary blue on hover */
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px; /* Thicker underline */
+    bottom: -8px; /* Lower underline */
+    left: 0;
+    background-color: #007bff;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Hero Section Styling */
+.hero-section {
+    padding: 180px 0 120px 0; /* More padding for spacious feel */
+    color: #333333;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.hero-section .display-3 {
+    font-size: 4.5rem; /* Even larger heading */
+    margin-bottom: 25px;
+    line-height: 1.1;
+    color: #0056b3; /* Darker blue for emphasis */
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+}
+
+.hero-section .lead {
+    font-size: 1.6rem; /* Larger lead text */
+    margin-bottom: 60px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #555555;
+    font-weight: 400;
+}
+
+.code-input-area {
+    width: 100%;
+    max-width: 1000px; /* Wider input area */
+    margin: 0 auto;
+    padding: 35px; /* More padding */
+    @extend .glassmorphism; /* Apply glassmorphism */
+}
+
+.hero-input-group textarea.form-control {
+    min-height: 350px; /* Taller textarea */
+    background: rgba(255, 255, 255, 0.4); /* Lighter transparent input background */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Subtle light border */
+    color: #333333; /* Dark text */
+    padding: 25px;
+    font-family: 'Fira Code', 'monospace';
+    font-size: 1.05rem;
+    border-radius: 10px;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.hero-input-group textarea.form-control:focus {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+.hero-input-group textarea.form-control::placeholder {
+    color: #777777; /* Softer placeholder */
+    opacity: 0.9;
+}
+
+.btn-decode {
+    background-color: #28a745; /* Vibrant green for positive action */
+    color: #fff;
+    border: none;
+    padding: 18px 45px; /* Larger button */
+    font-size: 1.3rem; /* Larger font */
+    font-weight: 600;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+}
+
+.btn-decode:hover {
+    background-color: #218838; /* Slightly darker green on hover */
+    transform: translateY(-5px); /* More pronounced lift */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Loading Spinner */
+#loading-spinner {
+    color: #007bff; /* Blue spinner */
+    font-size: 1.3rem;
+    margin-top: 40px;
+}
+
+.spinner-border {
+    width: 4rem; /* Larger spinner */
+    height: 4rem;
+    border-width: 0.4em;
+}
+
+/* How It Works Section Styling */
+.how-it-works-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Lighter background */
+    color: #333333;
+}
+
+.how-it-works-section h2 {
+    color: #2c3e50;
+    margin-bottom: 70px;
+    font-size: 3.5rem;
+}
+
+.step-card {
+    @extend .glassmorphism; /* Apply glassmorphism */
+    padding: 35px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.step-card:hover {
+    transform: translateY(-10px); /* More pronounced lift */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.step-icon {
+    font-size: 4rem; /* Larger icon */
+    color: #007bff; /* Bright blue for icons */
+    margin-bottom: 25px;
+    background: rgba(0, 123, 255, 0.1); /* Subtle blue background for icon */
+    padding: 25px; /* Larger padding */
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px; /* Fixed size for circular icon */
+    height: 120px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for icon */
+}
+
+.step-card h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.step-card p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #555555;
+}
+
+
+/* Features Section Styling */
+.features-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #e0f2f7 0%, #c1e1ec 100%); /* Same as body for continuity */
+    color: #333333;
+}
+
+.features-section h2 {
+    color: #0056b3;
+    margin-bottom: 70px;
+    font-size: 3.5rem;
+}
+
+.feature-card {
+    @extend .glassmorphism; /* Apply glassmorphism */
+    padding: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feature-card .icon {
+    font-size: 4rem;
+    color: #ffc107; /* Sunny yellow for engagement */
+    margin-bottom: 25px;
+    background: rgba(255, 193, 7, 0.1);
+    padding: 25px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.feature-card p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #555555;
+}
+
+/* Results Display Section Styling */
+.results-display-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Lighter background */
+    color: #333333;
+}
+
+.results-display-section h2 {
+    color: #2c3e50;
+    margin-bottom: 70px;
+    font-size: 3.5rem;
+}
+
+.analysis-card {
+    @extend .glassmorphism; /* Apply glassmorphism */
+    margin-bottom: 35px;
+    overflow: hidden;
+}
+
+.analysis-card .card-header {
+    background: rgba(255, 255, 255, 0.3); /* Lighter transparent header */
+    color: #2c3e50;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.analysis-card .card-header h3 {
+    margin-bottom: 0;
+    font-size: 2rem;
+    color: #2c3e50;
+}
+
+.analysis-card .card-header i {
+    font-size: 2.2rem;
+    margin-right: 20px;
+    color: #007bff;
+}
+
+.analysis-card .card-body {
+    padding: 30px 30px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555555;
+}
+
+.analysis-card .card-body p {
+    margin-bottom: 18px;
+}
+
+.analysis-card .card-body ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+}
+
+.analysis-card .card-body ul li {
+    margin-bottom: 12px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.analysis-card .card-body ul li::before {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #28a745; /* Vibrant green checkmark */
+    position: absolute;
+    left: 0;
+    top: 5px;
+    font-size: 1em;
+}
+
+.analysis-card .card-body p strong {
+    color: #0056b3; /* Darker blue for bold text */
+    font-weight: 700;
+}
+
+/* Flash Messages Styling (Adjusted for new theme) */
+.flashes-container {
+    position: fixed;
+    top: 100px; /* Below navbar, higher to avoid content */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    z-index: 1050;
+    padding: 10px;
+}
+
+.alert {
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 1.05rem;
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+}
+
+.alert-success {
+    background-color: #d4edda; /* Light green */
+    color: #155724; /* Dark green text */
+    border-color: #c3e6cb;
+}
+
+.alert-info {
+    background-color: #d1ecf1; /* Light blue */
+    color: #0c5460; /* Dark blue text */
+    border-color: #bee5eb;
+}
+
+.alert-warning {
+    background-color: #fff3cd; /* Light yellow */
+    color: #856404; /* Dark yellow text */
+    border-color: #ffeeba;
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red text */
+    border-color: #f5c6cb;
+}
+
+.alert-dismissible .btn-close {
+    font-size: 1em;
+    color: inherit;
+    opacity: 0.8;
+}
+.alert-dismissible .btn-close:hover {
+    opacity: 1;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #e9ecef; /* Lighter footer */
+    color: #555555;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .navbar-brand {
+        font-size: 1.6rem;
+    }
+    .navbar-nav .nav-link {
+        margin-left: 0;
+        text-align: center;
+        padding: 10px 0;
+    }
+    .hero-section .display-3 {
+        font-size: 3.5rem;
+    }
+    .hero-section .lead {
+        font-size: 1.2rem;
+    }
+    .hero-input-group {
+        padding: 25px;
+    }
+    .hero-input-group textarea.form-control {
+        min-height: 250px;
+    }
+    .btn-decode {
+        font-size: 1.1rem;
+        padding: 15px 35px;
+    }
+    .features-section h2,
+    .how-it-works-section h2,
+    .results-display-section h2 {
+        font-size: 3rem;
+    }
+    .feature-card, .analysis-card, .step-card {
+        padding: 30px;
+    }
+    .feature-card .icon, .step-icon {
+        font-size: 3.5rem;
+        width: 100px;
+        height: 100px;
+        padding: 20px;
+    }
+    .feature-card h3, .step-card h3 {
+        font-size: 1.8rem;
+    }
+    .analysis-card .card-header h3 {
+        font-size: 1.8rem;
+    }
+    .analysis-card .card-header i {
+        font-size: 2rem;
+    }
+    .analysis-card .card-body {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 120px 0 80px 0;
+    }
+    .hero-section .display-3 {
+        font-size: 2.8rem;
+    }
+    .hero-section .lead {
+        font-size: 1rem;
+        margin-bottom: 40px;
+    }
+    .features-section, .how-it-works-section, .results-display-section {
+        padding: 60px 0;
+    }
+    .features-section h2,
+    .how-it-works-section h2,
+    .results-display-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+    }
+    .feature-card, .analysis-card, .step-card {
+        margin-bottom: 25px;
+        padding: 25px;
+    }
+    .feature-card .icon, .step-icon {
+        font-size: 3rem;
+        width: 90px;
+        height: 90px;
+        padding: 18px;
+    }
+    .feature-card h3, .step-card h3 {
+        font-size: 1.6rem;
+    }
+    .analysis-card .card-header h3 {
+        font-size: 1.6rem;
+    }
+    .analysis-card .card-header i {
+        font-size: 1.8rem;
+    }
+    .analysis-card .card-body {
+        padding: 25px 20px;
+        font-size: 1rem;
+    }
+    .code-input-area {
+        padding: 20px;
+        margin-top: 30px;
+    }
+}

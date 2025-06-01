@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Lecture Analysis Results{% endblock %}
+
+{% block content %}
+    <section class="results-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Lecture Analysis Results</h2>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title text-center" id="video-title"></h3>
+                    <div class="text-center mb-3">
+                        <a id="download-pdf-btn" href="#" class="btn btn-primary btn-decode me-2 d-none"><i class="fas fa-file-pdf me-2"></i>Download PDF Report</a>
+                        <a id="view-on-youtube-btn" href="#" target="_blank" class="btn btn-secondary btn-decode d-none"><i class="fab fa-youtube me-2"></i>View on YouTube</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Summary</h4>
+                        </div>
+                        <div class="card-body" id="summary-content">
+                            <p>Summary will appear here...</p>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Top Questions & Answers</h4>
+                        </div>
+                        <div class="card-body" id="qa-content">
+                            <p>Questions and answers will appear here...</p>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Mnemonics / Memory Aids</h4>
+                        </div>
+                        <div class="card-body" id="mnemonics-content">
+                            <p>Mnemonics will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Full Transcript</h4>
+                        </div>
+                        <div class="card-body transcript-scroll" id="transcript-content">
+                            <p>Full transcript will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

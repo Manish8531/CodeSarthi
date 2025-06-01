@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Code Helping Buddy{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjDNb/mSYLpC/P2Q7Yw4jN+gQn9c5bL+3N5+e/j3mF6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/20L+o7xQW1/r7h4n5c5g4z5h5w5w5w5w5w5w5w5w5w5w5w5w5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/20L+o7xQW1/r7h4n5c5g4z5h5w5w5w5w5w5w5w5w5w5w5w5w5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">CodeVakya Code Buddy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#decode-section">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features-section">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#results-display-section">Try Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span>&copy; {{ current_year }} VidyaVeer Code Buddy. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
