@@ -3,7 +3,6 @@ Flask-SQLAlchemy==3.0.5
 Flask-Login==0.6.3
 python-dotenv==1.0.0
 youtube-transcript-api==0.6.2
+google-generativeai==0.3.0 # Updated to a stable version for Gemini
 reportlab==4.0.0
-langchain==0.1.16             # Added: Core LangChain library
-langchain-community==0.0.33   # Added: Community integrations for LangChain
-langchain-google-genai==2.1.5 # Updated: LangChain integration for Google Gemini to a stable version
+gunicorn 
