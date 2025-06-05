@@ -1,4 +1,9 @@
 Flask==2.3.3
+Flask-SQLAlchemy==3.0.5
+Flask-Login==0.6.3
 python-dotenv==1.0.0
-openai==1.3.0 # Changed to OpenAI
-# google-generativeai removed
+youtube-transcript-api==0.6.2
+reportlab==4.0.0
+langchain==0.1.16             # Added: Core LangChain library
+langchain-community==0.0.33   # Added: Community integrations for LangChain
+langchain-google-genai==2.1.5 # Updated: LangChain integration for Google Gemini to a stable version

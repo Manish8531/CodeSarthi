@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Code Helping Buddy - Understand Your Code{% endblock %}
+{% block title %}Code Ko Samjho, Coding Mein Jeeto{% endblock %}
 
 {% block content %}
 
@@ -13,6 +13,19 @@
                 <form id="code-form" method="POST">
                     <div class="hero-input-group flex-column">
                         <textarea class="form-control mb-3" id="user_code" name="user_code" rows="12" placeholder="Paste your Python, JavaScript, Java, C++ or any other code here to get instant insights..." required></textarea>
+
+                        {# START: Added Output Tone Selection #}
+                        <div class="mb-4 text-start"> {# Increased bottom margin #}
+                            <label for="outputTone" class="form-label text-white fw-bold">Choose Output Tone:</label>
+                            <select class="form-select custom-select-tone" id="outputTone" name="output_tone">
+                                <option value="friendly_buddy">1. Friendly Buddy (Bhai-type explanations, common language, jokes)</option>
+                                <option value="professional_teacher">2. Professional Teacher (Structured, real-life examples, encouraging)</option>
+                                <option value="fast_precise">3. Fast & Precise Learning (Concise, bullet points, direct to the point)</option>
+                            </select>
+                        </div>
+                        {# END: Added Output Tone Selection #}
+                        
+                        {# Removed the <a> tag wrapping the button as it interfered with form submission #}
                         <button type="submit" class="btn btn-decode">Analyze Code <i class="fas fa-arrow-right ms-2"></i></button>
                     </div>
                 </form>
@@ -78,9 +91,6 @@
                         <i class="fas fa-code-branch icon"></i>
                         <h3>80/20 Rule Applied</h3>
                         <p>Focus on what matters. Identify the essential 20% of your code's concepts that unlock understanding of the remaining 80%.</p>
-                    * **Add Animate.css:** For subtle animations on scroll or load, we can include Animate.css.
-                        `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>`
-                        (This needs to be added in `base.html` `<head>`)
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 d-flex mb-4 animate__animated animate__fadeInRight animate__delay-1.4s">
@@ -94,41 +104,92 @@
         </div>
     </section>
 
-    <section class="results-display-section py-5 d-none" id="results-display-section"> {# Initially hidden #}
+    {# Start: Results Display Section (Initially hidden) #}
+    <section class="results-display-section py-5 d-none" id="results-display-section"> 
         <div class="container">
             <h2 class="text-center mb-5 animate__animated animate__fadeIn">Your Code Analysis: Deeper Understanding</h2>
             <div id="analysis-results-container" class="mt-4 animate__animated animate__fadeInUp">
-                <div class="card analysis-card mb-4">
+                {# Concept Explanation Card - Now interactive step-by-step #}
+                <div class="analysis-card-premium mb-4">
                     <div class="card-header">
-                        <h3><i class="fas fa-info-circle me-2"></i>Concept Explanation: Why, What, How, Where</h3>
+                        <h3><i class="fas fa-info-circle me-3"></i>Concept Explanation</h3>
                     </div>
-                    <div class="card-body">
-                        <p><strong>Why:</strong> <span id="concept-why"></span></p>
-                        <p><strong>What:</strong> <span id="concept-what"></span></p>
-                        <p><strong>How:</strong> <span id="concept-how"></span></p>
-                        <p><strong>Where:</strong> <span id="concept-where"></span></p>
+                    <div class="card-body concept-stepper">
+                        <!-- Concept Steps Container -->
+                        <div class="concept-steps-container">
+                            <div class="concept-step animate__animated animate__fadeIn" id="concept-step-why">
+                                <div class="concept-header">
+                                    <i class="fas fa-question-circle"></i> <strong>Why this code even exist ?</strong>
+                                </div>
+                                <div class="concept-content" id="concept-why-content"></div>
+                            </div>
+
+                           
+
+                            <div class="concept-step animate__animated animate__fadeIn d-none" id="concept-step-how">
+                                <div class="concept-header">
+                                    <i class="fas fa-cogs"></i> <strong>How does it work ?</strong>
+                                </div>
+                                <div class="concept-content" id="concept-how-content"></div>
+                            </div>
+
+                            <div class="concept-step animate__animated animate__fadeIn d-none" id="concept-step-where">
+                                <div class="concept-header">
+                                    <i class="fas fa-map-marker-alt"></i> <strong>Where is this used for ?</strong>
+                                </div>
+                                <div class="concept-content" id="concept-where-content"></div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="concept-navigation d-flex justify-content-between mt-4">
+                            <button class="btn btn-secondary concept-nav-btn" id="prev-concept-btn" disabled><i class="fas fa-arrow-left me-2"></i>Back</button>
+                            <button class="btn btn-primary concept-nav-btn" id="next-concept-btn">Next<i class="fas fa-arrow-right ms-2"></i></button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card analysis-card mb-4">
-                    <div class="card-header">
-                        <h3><i class="fas fa-brain me-2"></i>Memory Mnemonics</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        {# Memory Mnemonics Card #}
+                        <div class="analysis-card-premium mb-4">
+                            <div class="card-header">
+                                <h3><i class="fas fa-brain me-3"></i>Memory Mnemonics</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul id="mnemonics-list"></ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <ul id="mnemonics-list"></ul>
+                    <div class="col-md-6">
+                        {# Core 20% Concepts Card #}
+                        <div class="analysis-card-premium mb-4">
+                            <div class="card-header">
+                                <h3><i class="fas fa-code-branch me-3"></i>Core 20% Concepts</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul id="core-concepts-list"></ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card analysis-card mb-4">
-                    <div class="card-header">
-                        <h3><i class="fas fa-cogs me-2"></i>Core 20% Concepts (for 80% Understanding)</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul id="core-concepts-list"></ul>
-                    </div>
+                {# Action Buttons for PDF download, Start AI Tutor, and Analyze New Code #}
+                <div class="text-center mt-4 mb-5">
+                    <button class="btn btn-decode me-3" id="download-analysis-pdf">
+                        <i class="fas fa-file-pdf me-2"></i> Download PDF
+                    </button>
+                    <!-- NEW BUTTON FOR AI TUTOR -->
+                    <a href="{{ url_for('tutor_page') }}" class="btn btn-secondary btn-decode me-3">
+                        <i class="fas fa-robot me-2"></i> Start AI Tutor
+                    </a>
+                    <a href="{{ url_for('home') }}" class="btn btn-secondary btn-decode">
+                        <i class="fas fa-redo me-2"></i> Analyze New Code
+                    </a>
                 </div>
             </div>
         </div>
     </section>
+    {# End: Results Display Section #}
 
 {% endblock %}

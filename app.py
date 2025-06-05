@@ -57,36 +57,36 @@ def analyze_code_with_openai(user_code):
 
         # Combined prompt for all required outputs in a structured JSON format
         combined_prompt = f"""
-            Hey AI, acting as 'VidyaVeer Code Buddy,' my go-to bro for coding knowledge.
+Hey AI, you're my 'VidyaVeer Code Buddy' — my bro who breaks down code like we’re two homies chillin' at 2 AM, coding and sipping chai.
 
-            Your job is to break down the provided code snippet like we're just chilling, learning together. Keep it super fun, engaging, and informal. Think less 'sir/madam' and more 'yo bro, let’s code!' vibe. Throw in some humor, maybe a joke, or even a rap style if it fits. The goal is to make learning feel like a cool convo between homies, not a boring lecture. Make Data Structures and Algorithms (DSA) feel as exciting as a Delhi Metro Cypher (DMC)!
+Your mission: analyze the provided code snippet and deliver a fun, deeply detailed, JSON-formatted breakdown. 
+Each section in the JSON should be **at least 5 full lines**, written in a crisp, clear, and super chill tone — like you're explaining code to your bestie, not a boardroom. 
+Make it informal, use analogies, jokes, Gen Z humor, even rap bars if it fits — just keep the learning fun and fire. 
+Treat Data Structures and Algorithms like they’re the DMC (Delhi Metro Cypher) of programming.
 
-            Your analysis should include:
-            1.  **Concept Explanation**: Explain the 'why, what, how, and where' of this code in a simple, buddy-like tone.
-                -   **Why**: What problem does it solve or what is its purpose?
-                -   **What**: What does this code do?
-                -   **How**: How does it achieve its purpose (step-by-step logic)?
-                -   **Where**: Where would this code typically be used (common applications/contexts)?
-            2.  **Memory Mnemonics**: Generate 2-3 creative, funny, or easy-to-remember mnemonics/memory aids for key concepts or syntax within this code. Make them catchy!
-            3.  **Core 20% Concepts**: Identify the most essential 20% of the concepts or lines of code. If understood, these will help the user grasp 80% of the code's functionality. Provide these as a bulleted list of key takeaways.
+### Return the following keys in the JSON:
 
-            Always format the output as a JSON object with the following keys. If any section cannot be generated, use 'N/A' or an empty array as appropriate:
-            {{
-                "concept_explanation": {{
-                    "why": "...",
-                    "what": "...",
-                    "how": "...",
-                    "where": "..."
-                }},
-                "mnemonics": ["mnemonic 1", "mnemonic 2", ...],
-                "core_concepts_20_percent": ["concept 1", "concept 2", ...]
-        }}
+{{
+  "concept_explanation": {{
+    "why": "Explain in 5+ detailed lines: what's the core problem this code solves? Why was this written ?",
+    "what": "Describe in 5+ lines: what this code actually does at a high level purpose behind this code — in fun, friendly terms.",
+    "how": "Step-by-step expalnation is point format, walk through how the code works in 5+ points — like you're narrating a chill tutorial.",
+    "where": "Mention in 5+ lines where this logic or concept is used in real-world apps or dev situations."
+  }},
+  "mnemonics": [
+    "At least 2-3 funny or creative memory tricks for remembering core syntax or ideas."
+  ],
+  "core_concepts_20_percent": [
+    "List the most important 20% of the code or logic that helps understand 80% of it. Minimum 4-5 items, briefly explained."
+  ]
+}}
 
-        Code:
-        ```
-        {user_code}
-        ```
-        """
+Respond only in JSON. No extra text. Format it perfectly.
+
+Now here’s the code:
+```java
+{user_code}
+"""
 
         
         response = openai.chat.completions.create(
@@ -175,6 +175,10 @@ def analyze_code():
         "success": True,
         "analysis": analysis_results
     })
+
+@app.route('/tutor')
+def tutor_page():
+    return render_template('tutor.html')
 
 
 # --- Main Run Block ---

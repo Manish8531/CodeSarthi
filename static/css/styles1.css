@@ -1,0 +1,650 @@
+/* General Body and HTML Styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif; /* Primary font for body */
+    background-color: #0d1117; /* GitHub-like dark background */
+    color: #c9d1d9; /* Light gray text for contrast */
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif; /* Poppins for headings */
+    color: #e6edf3; /* Slightly brighter heading color */
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #161b22; /* Darker, sleek navbar */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s ease;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.7rem; /* Slightly larger brand */
+    color: #58a6ff !important; /* Brighter blue for brand */
+    letter-spacing: -0.5px;
+}
+
+.navbar-nav .nav-link {
+    color: #c9d1d9 !important; /* Lighter text for links */
+    font-weight: 500;
+    margin-left: 20px;
+    position: relative; /* For underline effect */
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #58a6ff !important; /* Brighter blue on hover */
+}
+
+/* Underline effect for nav links */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #58a6ff;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Hero Section Styling */
+.hero-section {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); /* Dark gradient */
+    padding: 150px 0 100px 0; /* More top padding for content below navbar */
+    color: #c9d1d9;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.hero-section .display-3 {
+    font-size: 4rem; /* Larger heading */
+    font-weight: 700;
+    margin-bottom: 25px;
+    line-height: 1.2;
+    color: #e6edf3; /* Heading color */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-section .lead {
+    font-size: 1.4rem; /* Larger lead text */
+    margin-bottom: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #8b949e; /* Softer text color */
+}
+
+.hero-input-group {
+    width: 100%;
+    max-width: 900px; /* Wider input area */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(22, 27, 34, 0.7); /* Slightly translucent dark background */
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px); /* Subtle blur effect */
+}
+
+.hero-input-group textarea.form-control {
+    min-height: 300px; /* Even taller textarea */
+    background-color: #0d1117; /* Darkest background for input */
+    border: 1px solid #30363d; /* Subtle border */
+    color: #c9d1d9; /* Light text */
+    padding: 20px;
+    font-family: 'Fira Code', 'monospace'; /* Fira Code for a dev feel (install if not present, fallback to monospace) */
+    font-size: 1rem;
+    border-radius: 8px;
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.hero-input-group textarea.form-control::placeholder {
+    color: #8b949e; /* Softer placeholder text */
+    opacity: 0.8;
+}
+
+.btn-decode {
+    background-color: #238636; /* GitHub-like green button */
+    color: #fff;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 25px; /* Spacing from textarea */
+}
+
+.btn-decode:hover {
+    background-color: #2ea043; /* Lighter green on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Loading Spinner */
+#loading-spinner {
+    color: #c9d1d9;
+    font-size: 1.2rem;
+    margin-top: 30px;
+}
+
+.spinner-border {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-width: 0.35em;
+    color: #58a6ff; /* Blue spinner */
+}
+
+/* Features Section Styling */
+.features-section {
+    padding: 100px 0; /* More padding */
+    background-color: #161b22; /* Darker background */
+    color: #c9d1d9;
+}
+
+.features-section h2 {
+    color: #e6edf3;
+    margin-bottom: 60px; /* More spacing */
+    font-size: 3rem; /* Larger heading */
+    font-weight: 700;
+    text-align: center;
+}
+
+.feature-card {
+    background-color: #0d1117; /* Card background - even darker */
+    border-radius: 12px;
+    padding: 40px 30px; /* More padding inside cards */
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    margin-bottom: 30px;
+    border: 1px solid #30363d; /* Subtle border for definition */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px); /* More pronounced lift */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    background-color: #1a1e26; /* Slightly lighter on hover */
+}
+
+.feature-card .icon {
+    font-size: 3.5rem; /* Larger icons */
+    color: #58a6ff; /* Blue for icons */
+    margin-bottom: 25px;
+    background: rgba(88, 166, 255, 0.1); /* Subtle background for icon */
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.feature-card h3 {
+    font-size: 1.8rem; /* Larger card title */
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #e6edf3;
+}
+
+.feature-card p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #8b949e;
+}
+
+/* How It Works Section Styling */
+.how-it-works-section {
+    padding: 80px 0;
+    background-color: #0d1117; /* Dark background */
+    color: #c9d1d9;
+}
+
+.how-it-works-section h2 {
+    color: #e6edf3;
+    margin-bottom: 60px;
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.step-card {
+    background-color: #161b22; /* Card background */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%; /* Ensure cards are same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #30363d;
+}
+
+.step-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.step-icon {
+    font-size: 3.5rem;
+    color: #58a6ff; /* Blue icon */
+    margin-bottom: 20px;
+    background: rgba(88, 166, 255, 0.1);
+    padding: 20px;
+    border-radius: 50%;
+    display: inline-flex; /* To center the icon */
+    align-items: center;
+    justify-content: center;
+    width: 100px; /* Fixed size for circular icon */
+    height: 100px;
+}
+
+.step-card h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #e6edf3;
+}
+
+.step-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #8b949e;
+}
+
+/* Results Display Section Styling */
+.results-display-section {
+    padding: 100px 0;
+    background-color: #0d1117; /* Same as body background for continuity */
+    color: #c9d1d9;
+}
+
+.results-display-section h2 {
+    color: #e6edf3;
+    margin-bottom: 60px;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.analysis-card {
+    background-color: #161b22; /* Card background */
+    border: 1px solid #30363d; /* Border */
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px; /* Spacing between analysis cards */
+    overflow: hidden; /* Ensure border-radius applies */
+}
+
+.analysis-card .card-header {
+    background-color: #21262d; /* Dark header */
+    color: #e6edf3;
+    font-weight: 600;
+    border-bottom: 1px solid #30363d; /* Separator */
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.analysis-card .card-header h3 {
+    margin-bottom: 0;
+    font-size: 1.7rem; /* Larger header title */
+    color: #e6edf3;
+}
+
+.analysis-card .card-header i {
+    font-size: 1.8rem; /* Larger icon */
+    margin-right: 15px;
+    color: #58a6ff; /* Blue icon */
+}
+
+.analysis-card .card-body {
+    padding: 30px 25px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #c9d1d9;
+}
+
+.analysis-card .card-body p {
+    margin-bottom: 15px; /* Spacing between paragraphs */
+}
+
+.analysis-card .card-body ul {
+    list-style: none; /* Remove default bullet */
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.analysis-card .card-body ul li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.analysis-card .card-body ul li::before {
+    content: "\f00c"; /* Font Awesome checkmark icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #238636; /* Green checkmark */
+    position: absolute;
+    left: 0;
+    top: 5px;
+    font-size: 0.9em;
+}
+
+.analysis-card .card-body p strong {
+    color: #58a6ff; /* Blue for bold text */
+    font-weight: 600;
+}
+
+/* NEW: Concept Stepper Styles */
+.concept-stepper {
+    position: relative;
+    min-height: 450px; /* Ensure sufficient height for the tallest content */
+    overflow: hidden; /* Hide overflowing content during transitions */
+    padding: 25px; /* Padding for content inside */
+    display: flex; /* Use flexbox to organize content and navigation */
+    flex-direction: column; /* Stack content and nav vertically */
+    justify-content: space-between; /* Push nav to bottom */
+}
+
+.concept-steps-container {
+    position: relative;
+    width: 100%;
+    flex-grow: 1; /* Allow steps container to take available vertical space */
+    min-height: 350px; /* Minimum height for the steps display */
+}
+
+.concept-step {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(30, 30, 60, 0.7) 0%, rgba(40, 40, 80, 0.7) 100%); /* Vertical gradient */
+    border-radius: 12px;
+    border: 2px solid rgba(0, 255, 255, 0.5); /* Cyberpunk border */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #e0e0e0;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); /* Cyan glow */
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Smooth transitions */
+    position: absolute; /* For overlaying steps */
+    top: 0;
+    left: 0;
+    padding: 25px; /* Ensure padding is applied to the individual step */
+}
+
+.concept-step.d-none {
+    opacity: 0;
+    pointer-events: none; /* Make non-visible steps unclickable */
+    transform: translateY(20px); /* Slide effect for hidden elements */
+}
+
+.concept-step:not(.d-none) {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0); /* Return to original position */
+}
+
+.concept-step .concept-header {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.concept-step .concept-header i {
+    color: #00ff00; /* Neon green icon */
+    font-size: 3.5rem; /* Large icon */
+    margin-bottom: 10px; /* Space between icon and text */
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Glow */
+}
+
+.concept-step .concept-header strong {
+    color: #00ffff; /* Cyan text for label */
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem; /* Larger label */
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+    text-transform: uppercase;
+}
+
+.concept-step .concept-content {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    text-align: justify;
+    flex-grow: 1; /* Allow content to take up available vertical space */
+    width: 100%; /* Ensure content spans the width */
+    color: #a0a0a0; /* Softer text color for content */
+    overflow-y: auto; /* Allow content to scroll if it overflows height */
+    padding-right: 10px; /* For scrollbar */
+    /* Custom scrollbar for concept-content */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(0, 255, 255, 0.3) rgba(0, 255, 255, 0.05); /* Firefox */
+}
+
+.concept-step .concept-content::-webkit-scrollbar {
+    width: 8px;
+}
+.concept-step .concept-content::-webkit-scrollbar-track {
+    background: rgba(0, 255, 255, 0.05);
+    border-radius: 10px;
+}
+.concept-step .concept-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+}
+.concept-step .concept-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 255, 0.5);
+}
+
+
+.concept-navigation {
+    margin-top: 30px; /* Space from content */
+    width: 100%; /* Ensure buttons span full width */
+}
+
+.concept-nav-btn {
+    background: linear-gradient(45deg, #8a2be2, #4b0082); /* Purple gradient */
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+    color: #e0e0e0; /* Light text for buttons */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.concept-nav-btn:hover:not(:disabled) {
+    background: linear-gradient(45deg, #4b0082, #8a2be2);
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.7);
+}
+
+.concept-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+    .navbar-nav .nav-link {
+        margin-left: 0;
+        text-align: center;
+        padding: 10px 0;
+    }
+    .hero-section .display-3 {
+        font-size: 3rem;
+    }
+    .hero-section .lead {
+        font-size: 1.1rem;
+    }
+    .hero-input-group {
+        padding: 15px;
+    }
+    .hero-input-group textarea.form-control {
+        min-height: 200px;
+    }
+    .btn-decode {
+        font-size: 1rem;
+        padding: 12px 30px;
+    }
+    .features-section h2,
+    .results-display-section h2,
+    .how-it-works-section h2 {
+        font-size: 2.5rem;
+    }
+    .feature-card, .analysis-card {
+        padding: 30px 20px;
+    }
+    .feature-card .icon {
+        font-size: 3rem;
+    }
+    .feature-card h3 {
+        font-size: 1.6rem;
+    }
+    .analysis-card .card-header h3 {
+        font-size: 1.4rem;
+    }
+    .analysis-card .card-header i {
+        font-size: 1.5rem;
+    }
+    .analysis-card .card-body {
+        font-size: 1rem;
+    }
+    /* Concept Stepper Responsive */
+    .concept-stepper {
+        min-height: 400px;
+    }
+    .concept-step .concept-header i {
+        font-size: 3rem;
+    }
+    .concept-step .concept-header strong {
+        font-size: 1.5rem;
+    }
+    .concept-step .concept-content {
+        font-size: 1rem;
+    }
+    .concept-nav-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 120px 0 60px 0;
+    }
+    .hero-section .display-3 {
+        font-size: 2.5rem;
+    }
+    .hero-section .lead {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    .features-section, .results-display-section, .how-it-works-section {
+        padding: 60px 0;
+    }
+    .features-section h2,
+    .results-display-section h2,
+    .how-it-works-section h2 {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+    .feature-card, .analysis-card, .step-card {
+        margin-bottom: 20px;
+    }
+    .feature-card .icon, .step-icon {
+        font-size: 2.5rem;
+    }
+    .feature-card h3, .step-card h3 {
+        font-size: 1.4rem;
+    }
+    .analysis-card .card-header h3 {
+        font-size: 1.2rem;
+    }
+    .analysis-card .card-header i {
+        font-size: 1.5rem;
+    }
+    .analysis-card .card-body {
+        padding: 20px 15px;
+        font-size: 0.95rem;
+    }
+    /* Concept Stepper Responsive */
+    .concept-stepper {
+        min-height: 350px; /* Adjusted height for smaller screens */
+    }
+    .concept-step .concept-header i {
+        font-size: 2.8rem;
+    }
+    .concept-step .concept-header strong {
+        font-size: 1.3rem;
+    }
+    .concept-step .concept-content {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section .display-3 {
+        font-size: 2rem;
+    }
+    .hero-section .lead {
+        font-size: 0.9rem;
+    }
+    .btn-decode {
+        padding: 10px 25px;
+        font-size: 0.95rem;
+    }
+    .features-section h2,
+    .results-display-section h2,
+    .how-it-works-section h2 {
+        font-size: 1.8rem;
+    }
+    .feature-card h3, .step-card h3 {
+        font-size: 1.2rem;
+    }
+    .analysis-card .card-body {
+        font-size: 0.85rem;
+    }
+    /* Concept Stepper Responsive */
+    .concept-stepper {
+        min-height: 300px;
+    }
+    .concept-step .concept-header i {
+        font-size: 2.2rem;
+    }
+    .concept-step .concept-header strong {
+        font-size: 1.1rem;
+    }
+    .concept-step .concept-content {
+        font-size: 0.8rem;
+    }
+    .concept-nav-btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}

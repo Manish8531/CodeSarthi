@@ -1,4 +1,21 @@
-/* General Body and HTML Styles */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Code Helping Buddy{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjDNb/mSYLpC/P2Q7Yw4jN+gQn9c5bL+3N5+e/j3mF6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/20L+o7xQW1/r7h4n5c5g4z5h5w5w5w5w5w5w5w5w5w5w5w5w5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/20L+o7xQW1/r7h4n5c5g4z5h5w5w5w5w5w5w5w5w5w5w5w5w5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body and HTML Styles */
 html, body {
     height: 100%;
     margin: 0;
@@ -382,6 +399,8 @@ html, body {
 /* NEW: Concept Item Styling */
 .concept-item {
     background: linear-gradient(45deg, rgba(30, 30, 60, 0.6), rgba(40, 40, 80, 0.6)); /* Subtle gradient background for depth */
+    width: 100px;
+    height: 100px;
     margin-bottom: 20px; /* Increased margin for better separation */
     padding: 18px 25px; /* Increased padding */
     border-radius: 10px; /* Slightly more rounded */
@@ -786,253 +805,231 @@ code {
     }
 }
 
-/* Enhanced Concept Item Styling with Interactive Elements */
-.concept-item {
-    background: linear-gradient(135deg, rgba(30, 30, 60, 0.8), rgba(40, 40, 80, 0.8));
-    margin-bottom: 25px;
-    padding: 25px 30px;
-    border-radius: 15px;
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+    </style>
 
-/* Unique border colors for each concept */
-.concept-item.why-item {
-    border-image: linear-gradient(45deg, #ff6b6b, #ff8e8e) 1;
-    border-style: solid;
-    width: 100px;
-    height: 100px;
-}
-
-.concept-item.what-item {
-    border-image: linear-gradient(45deg, #4ecdc4, #6ee5dd) 1;
-    border-style: solid;
-    width: 100px;
-    height: 100px;
-}
-
-.concept-item.how-item {
-    border-image: linear-gradient(45deg, #ffe66d, #fff59d) 1;
-    border-style: solid;
-    width: 100px;
-    height: 100px;
-}
-
-.concept-item.where-item {
-    border-image: linear-gradient(45deg, #ff6b9d, #ff8fab) 1;
-    border-style: solid;
     
-}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">CodeVakya Code Buddy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#decode-section">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features-section">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#results-display-section">Try Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-/* Animated background overlay */
-.concept-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.6s ease;
-}
+    <main class="container-fluid">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
 
-.concept-item:hover::before {
-    left: 100%;
-}
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span>&copy; {{ current_year }} VidyaVeer Code Buddy. All rights reserved.</span>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-.concept-item:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 15px 40px rgba(0, 255, 255, 0.3), 0 0 30px rgba(255, 0, 255, 0.2);
-}
 
-.concept-item.why-item:hover {
-    box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4), 0 0 30px rgba(255, 142, 142, 0.3);
-}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+     <section class="hero-section d-flex align-items-center justify-content-center text-center" id="decode-section">
+        <div class="container">
+            <h1 class="display-3 animate__animated animate__fadeInDown">Code Ko Samjho, Coding Mein Jeeto — Your AI Code Buddy!</h1>
+            <p class="lead animate__animated animate__fadeInUp animate__delay-0.5s">Unlock complex code with simple explanations, powerful mnemonics, and core concepts. Learn smarter, not harder.</p>
 
-.concept-item.what-item:hover {
-    box-shadow: 0 15px 40px rgba(78, 205, 196, 0.4), 0 0 30px rgba(110, 229, 221, 0.3);
-}
+            <div class="code-input-area animate__animated animate__zoomIn animate__delay-1s">
+                <form id="code-form" method="POST">
+                    <div class="hero-input-group flex-column">
+                        <textarea class="form-control mb-3" id="user_code" name="user_code" rows="12" placeholder="Paste your Python, JavaScript, Java, C++ or any other code here to get instant insights..." required></textarea>
 
-.concept-item.how-item:hover {
-    box-shadow: 0 15px 40px rgba(255, 230, 109, 0.4), 0 0 30px rgba(255, 245, 157, 0.3);
-}
+                        {# START: Added Output Tone Selection #}
+                        <div class="mb-4 text-start"> {# Increased bottom margin #}
+                            <label for="outputTone" class="form-label text-white fw-bold">Choose Output Tone:</label>
+                            <select class="form-select custom-select-tone" id="outputTone" name="output_tone">
+                                <option value="friendly_buddy">1. Friendly Buddy (Bhai-type explanations, common language, jokes)</option>
+                                <option value="professional_teacher">2. Professional Teacher (Structured, real-life examples, encouraging)</option>
+                                <option value="fast_precise">3. Fast & Precise Learning (Concise, bullet points, direct to the point)</option>
+                            </select>
+                        </div>
+                        {# END: Added Output Tone Selection #}
+                        
+                        {# Removed the <a> tag wrapping the button as it interfered with form submission #}
+                        <button type="submit" class="btn btn-decode">Analyze Code <i class="fas fa-arrow-right ms-2"></i></button>
+                    </div>
+                </form>
+                <div id="loading-spinner" class="mt-4 text-center d-none">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2 text-white">Analyzing your code, please wait...</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.concept-item.where-item:hover {
-    box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4), 0 0 30px rgba(255, 143, 171, 0.3);
-}
+    <section class="how-it-works-section py-5" id="how-it-works-section">
+        <div class="container">
+            <h2 class="text-center mb-5 animate__animated animate__fadeIn">How It Works: Simple Steps to Code Mastery</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4 animate__animated animate__fadeInLeft animate__delay-0.5s">
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fas fa-paste"></i></div>
+                        <h3>1. Paste Your Code</h3>
+                        <p>Simply copy and paste any code snippet into the editor above. We support multiple programming languages.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate__animated animate__fadeInUp animate__delay-0.8s">
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fas fa-cogs"></i></div>
+                        <h3>2. Get Instant Analysis</h3>
+                        <p>Our AI processes your code, breaking down its logic and purpose in seconds.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate__animated animate__fadeInRight animate__delay-1.1s">
+                    <div class="step-card">
+                        <div class="step-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>3. Learn & Master</h3>
+                        <p>Receive clear explanations, memory aids, and focus on the 20% core concepts for 80% understanding.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-/* Enhanced icon styling */
-.concept-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-right: 25px;
-    font-size: 1.8rem;
-    flex-shrink: 0;
-    position: relative;
-    transition: all 0.3s ease;
-}
+    <section class="features-section py-5" id="features-section">
+        <div class="container">
+            <h2 class="text-center mb-5 animate__animated animate__fadeIn">Why VidyaVeer Code Buddy? Your Learning Advantage.</h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 d-flex mb-4 animate__animated animate__fadeInLeft animate__delay-0.5s">
+                    <div class="feature-card">
+                        <i class="fas fa-lightbulb icon"></i>
+                        <h3>Deep Concept Clarity</h3>
+                        <p>Go beyond syntax. Understand the 'why, what, how, and where' of your code with simple, easy-to-grasp explanations.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 d-flex mb-4 animate__animated animate__fadeInUp animate__delay-0.8s">
+                    <div class="feature-card">
+                        <i class="fas fa-brain icon"></i>
+                        <h3>Effective Memory Mnemonics</h3>
+                        <p>Boost your retention! Get creative memory aids and tricks tailored to help you recall complex coding patterns and syntax effortlessly.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 d-flex mb-4 animate__animated animate__fadeInDown animate__delay-1.1s">
+                    <div class="feature-card">
+                        <i class="fas fa-code-branch icon"></i>
+                        <h3>80/20 Rule Applied</h3>
+                        <p>Focus on what matters. Identify the essential 20% of your code's concepts that unlock understanding of the remaining 80%.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 d-flex mb-4 animate__animated animate__fadeInRight animate__delay-1.4s">
+                    <div class="feature-card">
+                        <i class="fas fa-book-reader icon"></i>
+                        <h3>Accelerated Learning</h3>
+                        <p>Transform your learning curve. Get immediate, actionable insights into any code snippet, turning confusion into clarity instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.concept-item.why-item .concept-icon {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
-}
+    {# Start: Results Display Section (Initially hidden) #}
+    <section class="results-display-section py-5 d-none" id="results-display-section"> 
+        <div class="container">
+            <h2 class="text-center mb-5 animate__animated animate__fadeIn">Your Code Analysis: Deeper Understanding</h2>
+            <div id="analysis-results-container" class="mt-4 animate__animated animate__fadeInUp">
+                {# Concept Explanation Card - Now using individual styled divs #}
+                <div class="analysis-card-premium mb-4">
+                    <div class="card-header">
+                        <h3><i class="fas fa-info-circle me-3"></i>Concept Explanation</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="concept-item">
+                            <i class="fas fa-question-circle me-2"></i><strong>Why this code even exists:</strong> <span id="concept-why"></span>
+                        </div>
+                        <div class="concept-item">
+                            <i class="fas fa-lightbulb me-2"></i><strong>What this code is used for:</strong> <span id="concept-what"></span>
+                        </div>
+                        <div class="concept-item">
+                            <i class="fas fa-cogs me-2"></i><strong>How does it work :</strong> <span id="concept-how"></span>
+                        </div>
+                        <div class="concept-item">
+                            <i class="fas fa-map-marker-alt me-2"></i><strong>Where this code is used in real life :</strong> <span id="concept-where"></span>
+                        </div>
+                    </div>
+                </div>
 
-.concept-item.what-item .concept-icon {
-    background: linear-gradient(45deg, #4ecdc4, #6ee5dd);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
-}
+                <div class="row">
+                    <div class="col-md-6">
+                        {# Memory Mnemonics Card #}
+                        <div class="analysis-card-premium mb-4">
+                            <div class="card-header">
+                                <h3><i class="fas fa-brain me-3"></i>Memory Mnemonics</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul id="mnemonics-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        {# Core 20% Concepts Card #}
+                        <div class="analysis-card-premium mb-4">
+                            <div class="card-header">
+                                <h3><i class="fas fa-code-branch me-3"></i>Core 20% Concepts</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul id="core-concepts-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-.concept-item.how-item .concept-icon {
-    background: linear-gradient(45deg, #ffe66d, #fff59d);
-    color: #333;
-    box-shadow: 0 0 20px rgba(255, 230, 109, 0.6);
-}
+                {# Action Buttons for PDF download, Start AI Tutor, and Analyze New Code #}
+                <div class="text-center mt-4 mb-5">
+                    <button class="btn btn-decode me-3" id="download-analysis-pdf">
+                        <i class="fas fa-file-pdf me-2"></i> Download PDF
+                    </button>
+                    <!-- NEW BUTTON FOR AI TUTOR -->
+                    <a href="{{ url_for('tutor_page') }}" class="btn btn-secondary btn-decode me-3">
+                        <i class="fas fa-robot me-2"></i> Start AI Tutor
+                    </a>
+                    <a href="{{ url_for('home') }}" class="btn btn-secondary btn-decode">
+                        <i class="fas fa-redo me-2"></i> Analyze New Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.concept-item.where-item .concept-icon {
-    background: linear-gradient(45deg, #ff6b9d, #ff8fab);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(255, 107, 157, 0.6);
-}
 
-.concept-item:hover .concept-icon {
-    transform: rotate(360deg) scale(1.1);
-}
 
-/* Content area styling */
-.concept-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
 
-.concept-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-}
-
-.concept-item.why-item .concept-title {
-    color: #ff8e8e;
-    text-shadow: 0 0 10px rgba(255, 107, 107, 0.7);
-}
-
-.concept-item.what-item .concept-title {
-    color: #6ee5dd;
-    text-shadow: 0 0 10px rgba(78, 205, 196, 0.7);
-}
-
-.concept-item.how-item .concept-title {
-    color: #fff59d;
-    text-shadow: 0 0 10px rgba(255, 230, 109, 0.7);
-}
-
-.concept-item.where-item .concept-title {
-    color: #ff8fab;
-    text-shadow: 0 0 10px rgba(255, 107, 157, 0.7);
-}
-
-.concept-description {
-    color: #e0e0e0;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    opacity: 0.9;
-    transition: opacity 0.3s ease;
-}
-
-.concept-item:hover .concept-description {
-    opacity: 1;
-}
-
-/* Pulse animation for emphasis */
-@keyframes pulse-glow {
-    0% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
-    50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.6); }
-    100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
-}
-
-.concept-item.active {
-    animation: pulse-glow 2s infinite;
-}
-
-/* Interactive tooltip-style enhancement */
-.concept-item::after {
-    content: 'Click to highlight';
-    position: absolute;
-    top: -35px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    color: #00ffff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.concept-item:hover::after {
-    opacity: 1;
-}
-
-/* Staggered animation for initial load */
-.concept-item.animate-in {
-    animation: slideInUp 0.6s ease forwards;
-}
-
-.concept-item:nth-child(1) { animation-delay: 0.1s; }
-.concept-item:nth-child(2) { animation-delay: 0.2s; }
-.concept-item:nth-child(3) { animation-delay: 0.3s; }
-.concept-item:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .concept-item {
-        padding: 20px;
-        margin-bottom: 20px;
-    }
     
-    .concept-icon {
-        width: 50px;
-        height: 50px;
-        margin-right: 20px;
-        font-size: 1.5rem;
-    }
-    
-    .concept-title {
-        font-size: 1.1rem;
-    }
-    
-    .concept-description {
-        font-size: 1rem;
-    }
-    
-    .concept-item::after {
-        display: none; /* Hide tooltip on mobile */
-    }
-}
+</body>
+</html>

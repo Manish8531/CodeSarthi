@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}Code Analysis Results{% endblock %}
+
+{% block content %}
+    {# Link to the specific CSS for this results page #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles1.css') }}">
+
+    <section class="code-analysis-results-section d-flex align-items-center justify-content-center">
+        <div class="container">
+            <h2 class="text-center mb-5 animate__animated animate__fadeIn">Your Code Analysis: Deeper Understanding</h2>
+
+            <div id="analysis-results-display" class="animate__animated animate__fadeInUp">
+                {# Concept Explanation Card #}
+                <div class="analysis-card-premium mb-4">
+                    <div class="card-header">
+                        <h3><i class="fas fa-info-circle me-3"></i>Concept Explanation</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion accordion-flush" id="conceptAccordion">
+                            <div class="accordion-item-premium">
+                                <h2 class="accordion-header-premium" id="headingWhy">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWhy" aria-expanded="true" aria-controls="collapseWhy">
+                                        <strong class="me-2"><i class="fas fa-question-circle me-2"></i>Why:</strong>
+                                    </button>
+                                </h2>
+                                <div id="collapseWhy" class="accordion-collapse collapse show" aria-labelledby="headingWhy" data-bs-parent="#conceptAccordion">
+                                    {# Content will be populated by JavaScript after markdown parsing #}
+                                    <div class="accordion-body-premium" data-markdown-content="{{ analysis.concept_explanation.why | e }}"></div>
+                                </div>
+                            </div>
+                            <div class="accordion-item-premium">
+                                <h2 class="accordion-header-premium" id="headingWhat">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWhat" aria-expanded="false" aria-controls="collapseWhat">
+                                        <strong class="me-2"><i class="fas fa-lightbulb me-2"></i>What:</strong>
+                                    </button>
+                                </h2>
+                                <div id="collapseWhat" class="accordion-collapse collapse" aria-labelledby="headingWhat" data-bs-parent="#conceptAccordion">
+                                    {# Content will be populated by JavaScript after markdown parsing #}
+                                    <div class="accordion-body-premium" data-markdown-content="{{ analysis.concept_explanation.what | e }}"></div>
+                                </div>
+                            </div>
+                            <div class="accordion-item-premium">
+                                <h2 class="accordion-header-premium" id="headingHow">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHow" aria-expanded="false" aria-controls="collapseHow">
+                                        <strong class="me-2"><i class="fas fa-cogs me-2"></i>How:</strong>
+                                    </button>
+                                </h2>
+                                <div id="collapseHow" class="accordion-collapse collapse" aria-labelledby="headingHow" data-bs-parent="#conceptAccordion">
+                                    {# Content will be populated by JavaScript after markdown parsing #}
+                                    <div class="accordion-body-premium" data-markdown-content="{{ analysis.concept_explanation.how | e }}"></div>
+                                </div>
+                            </div>
+                            <div class="accordion-item-premium">
+                                <h2 class="accordion-header-premium" id="headingWhere">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWhere" aria-expanded="false" aria-controls="collapseWhere">
+                                        <strong class="me-2"><i class="fas fa-map-marker-alt me-2"></i>Where:</strong>
+                                    </button>
+                                </h2>
+                                <div id="collapseWhere" class="accordion-collapse collapse" aria-labelledby="headingWhere" data-bs-parent="#conceptAccordion">
+                                    {# Content will be populated by JavaScript after markdown parsing #}
+                                    <div class="accordion-body-premium" data-markdown-content="{{ analysis.concept_explanation.where | e }}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {# Memory Mnemonics Card #}
+                        <div class="analysis-card-premium mb-4">
+                            <div class="card-header">
+                                <h3><i class="fas fa-brain me-3"></i>Memory Mnemonics</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul id="mnemonics-list">
+                                    {# Mnemonics will be populated by JavaScript after markdown parsing #}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        {# Core 20% Concepts Card #}
+                        <div class="analysis-card-premium mb-4">
+                            <div class="card-header">
+                                <h3><i class="fas fa-code-branch me-3"></i>Core 20% Concepts</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul id="core-concepts-list">
+                                    {# Core concepts will be populated by JavaScript after markdown parsing #}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Action Buttons #}
+                <div class="text-center mt-4 mb-5">
+                    <button class="btn btn-decode me-3" id="download-analysis-pdf">
+                        <i class="fas fa-file-pdf me-2"></i> Download PDF
+                    </button>
+                    <a href="{{ url_for('home') }}" class="btn btn-secondary btn-decode">
+                        <i class="fas fa-redo me-2"></i> Analyze New Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Hidden script tag to safely pass JSON data from Flask to JavaScript #}
+    <script type="application/json" id="analysis-data">
+        {{ analysis | tojson }}
+    </script>
+    <script type="application/json" id="original-code-data">
+        {{ original_code | tojson }}
+    </script>
+
+    {# JavaScript for this page to handle markdown rendering, copy button, and PDF download #}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the analysis data by parsing the content of the script tags
+            const analysisData = JSON.parse(document.getElementById('analysis-data').textContent);
+            const originalCode = JSON.parse(document.getElementById('original-code-data').textContent);
+
+            // Function to render markdown content into an element
+            const renderMarkdown = (element, content) => {
+                // Ensure content is a string before parsing
+                const stringContent = String(content || ''); // Convert to string, default to empty if null/undefined
+                if (element) {
+                    element.innerHTML = marked.parse(stringContent);
+                }
+            };
+
+            // Populate Concept Explanation sections
+            document.querySelectorAll('.accordion-body-premium').forEach(function(element) {
+                const markdownContent = element.getAttribute('data-markdown-content');
+                renderMarkdown(element, markdownContent);
+            });
+
+            // Populate Mnemonics
+            const mnemonicsList = document.getElementById('mnemonics-list');
+            // Added Array.isArray() check for robustness
+            if (analysisData.mnemonics && Array.isArray(analysisData.mnemonics) && analysisData.mnemonics.length > 0) {
+                analysisData.mnemonics.forEach(mnemonic => {
+                    const li = document.createElement('li');
+                    // Ensure mnemonic is a string before parsing
+                    li.innerHTML = marked.parse(String(mnemonic || ''));
+                    mnemonicsList.appendChild(li);
+                });
+            } else {
+                mnemonicsList.innerHTML = '<li>No mnemonics generated.</li>';
+            }
+
+            // Populate Core 20% Concepts
+            const coreConceptsList = document.getElementById('core-concepts-list');
+            // Added Array.isArray() check for robustness
+            if (analysisData.core_concepts_20_percent && Array.isArray(analysisData.core_concepts_20_percent) && analysisData.core_concepts_20_percent.length > 0) {
+                analysisData.core_concepts_20_percent.forEach(concept => {
+                    const li = document.createElement('li');
+                    // Ensure concept is a string before parsing
+                    li.innerHTML = marked.parse(String(concept || ''));
+                    coreConceptsList.appendChild(li);
+                });
+            } else {
+                coreConceptsList.innerHTML = '<li>No core concepts identified.</li>';
+            }
+
+            // --- Copy Code Button Functionality ---
+            // Add copy buttons to all <pre><code> blocks after markdown rendering
+            document.querySelectorAll('pre code').forEach(function(codeBlock) {
+                const pre = codeBlock.parentNode;
+                if (pre.tagName === 'PRE') { // Ensure it's a direct child of pre
+                    const button = document.createElement('button');
+                    button.className = 'copy-code-btn';
+                    button.textContent = 'Copy Code';
+                    pre.style.position = 'relative'; // Ensure pre is positioned for absolute button
+                    pre.appendChild(button);
+
+                    button.addEventListener('click', function() {
+                        const textToCopy = codeBlock.textContent;
+                        // Using deprecated document.execCommand('copy') for broader iframe compatibility
+                        const textarea = document.createElement('textarea');
+                        textarea.value = textToCopy;
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        try {
+                            document.execCommand('copy');
+                            button.textContent = 'Copied!';
+                            setTimeout(() => {
+                                button.textContent = 'Copy Code';
+                            }, 2000);
+                        } catch (err) {
+                            console.error('Failed to copy text: ', err);
+                            alert('Failed to copy code. Please copy manually.');
+                        }
+                        document.body.removeChild(textarea);
+                    });
+                }
+            });
+
+            // --- PDF Download Button Functionality ---
+            const downloadPdfBtn = document.getElementById('download-analysis-pdf');
+            if (downloadPdfBtn) {
+                downloadPdfBtn.addEventListener('click', async function() {
+                    downloadPdfBtn.textContent = 'Generating PDF...';
+                    downloadPdfBtn.disabled = true;
+
+                    try {
+                        const response = await fetch('/generate_temp_pdf', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                analysis: analysisData, // Send the current analysis data
+                                full_content: originalCode // Send original code
+                            })
+                        });
+
+                        if (response.ok) {
+                            const blob = await response.blob();
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'CodeAnalysisReport.pdf';
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            window.URL.revokeObjectURL(url);
+                            alert('PDF downloaded successfully!');
+                        } else {
+                            const errorData = await response.json();
+                            alert('Failed to generate PDF: ' + (errorData.error || 'Unknown error'));
+                        }
+                    } catch (error) {
+                        console.error('Error generating PDF:', error);
+                        alert('An error occurred while generating the PDF.');
+                    } finally {
+                        downloadPdfBtn.textContent = 'Download PDF';
+                        downloadPdfBtn.disabled = false;
+                    }
+                });
+            }
+
+            // Initialize Highlight.js for syntax highlighting
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightAll();
+            }
+        });
+    </script>
+{% endblock %}
