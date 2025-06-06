@@ -14,6 +14,8 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'a_very_secret_key_for_dev_only')
 
+print("OpenAI API Key:", os.getenv("OPENAI_API_KEY"))
+
 # --- OpenAI API Key Setup ---
 # Get API key from environment variable
 openai_api_key_loaded = os.getenv('OPENAI_API_KEY')
