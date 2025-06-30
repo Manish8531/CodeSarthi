@@ -1,0 +1,15 @@
+This is a test analysis file for the AI tutor.
+
+Sample code analysis:
+- Function: bubbleSort
+- Purpose: Sorts an array using bubble sort algorithm
+- Time complexity: O(n²)
+- Space complexity: O(1)
+
+Key concepts:
+1. Array manipulation
+2. Nested loops
+3. Swapping elements
+4. Optimization techniques
+
+This file should be used to test the tutor functionality. 

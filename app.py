@@ -7,12 +7,27 @@ import openai # Using OpenAI API
 import json # To handle structured JSON output from LLM
 import datetime # Import datetime to get the current year
 
+from langchain_openai import ChatOpenAI
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
+from langchain.prompts import PromptTemplate
+from langchain.schema import HumanMessage
+
+
+from langchain.chains import LLMChain
+
+
+
 # Load environment variables from .env file
 load_dotenv()
 
 # --- Flask App Configuration ---
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'a_very_secret_key_for_dev_only')
+
+app.config['UPLOAD_FOLDER'] = 'uploads'
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
 
 print("OpenAI API Key:", os.getenv("OPENAI_API_KEY"))
 
@@ -52,19 +67,19 @@ def analyze_code_with_openai(user_code):
         # model="gpt-3.5-turbo" is a good default, or "gpt-4" for higher quality (but more cost)
         # OpenRouter.ai par available models ki list unki documentation mein dekh lena.
         # Example: "openai/gpt-3.5-turbo", "google/gemini-pro"
-        model_name = "gpt-3.5-turbo" # OpenRouter.ai par yeh model "openai/gpt-3.5-turbo" ho sakta hai. 
+        model_name = "openai/gpt-4.1-nano" # OpenRouter.ai par yeh model "openai/gpt-3.5-turbo" ho sakta hai. 
                                      # Agar ye kaam na kare toh "openai/gpt-3.5-turbo" try karna.
 
         print(f"DEBUG: Attempting to generate content with OpenAI API using model '{model_name}' via OpenRouter.ai...")
 
         # Combined prompt for all required outputs in a structured JSON format
         combined_prompt = f"""
-Hey AI, you're my 'VidyaVeer Code Buddy' — my bro who breaks down code like we’re two homies chillin' at 2 AM, coding and sipping chai.
+Hey AI, you're my 'VidyaVeer Code Buddy' — my bro who breaks down code like we're two homies chillin' at 2 AM, coding and sipping chai.
 
 Your mission: analyze the provided code snippet and deliver a fun, deeply detailed, JSON-formatted breakdown. 
 Each section in the JSON should be **at least 5 full lines**, written in a crisp, clear, and super chill tone — like you're explaining code to your bestie, not a boardroom. 
 Make it informal, use analogies, jokes, Gen Z humor, even rap bars if it fits — just keep the learning fun and fire. 
-Treat Data Structures and Algorithms like they’re the DMC (Delhi Metro Cypher) of programming.
+Treat Data Structures and Algorithms like they're the DMC (Delhi Metro Cypher) of programming.
 
 ### Return the following keys in the JSON:
 
@@ -85,7 +100,7 @@ Treat Data Structures and Algorithms like they’re the DMC (Delhi Metro Cypher)
 
 Respond only in JSON. No extra text. Format it perfectly.
 
-Now here’s the code:
+Now here's the code:
 ```java
 {user_code}
 """
@@ -100,6 +115,13 @@ Now here’s the code:
             response_format={"type": "json_object"}, # Request JSON object
             max_tokens=1500 # Adjust max_tokens as needed for comprehensive response
         )
+        
+        # Fix: Add null check for response content
+        if response.choices[0].message.content is None:
+            return {
+                "error": "OpenAI returned empty response. Please try again."
+            }
+            
         raw_text = response.choices[0].message.content.strip()
         print("DEBUG: Raw LLM response received.")
 
@@ -181,6 +203,79 @@ def analyze_code():
 @app.route('/tutor')
 def tutor_page():
     return render_template('tutor.html')
+
+
+#-CHAT BOT IMPLEMENTATION -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Setup LLM & memory (Session-wide memory)
+# ✅ FIX 1: Declare LLM + Memory + Conversation globally (so they persist)
+
+
+
+
+llm = ChatOpenAI(model="openai/gpt-4.1-nano", temperature=0.7,  openai_api_base=os.getenv("OPENAI_API_BASE"),   max_tokens=1024)
+memory = ConversationBufferMemory()
+conversation = ConversationChain(llm=llm, memory=memory, verbose=False)  # 🔄 Reused across requests
+# Inside app.py (global init area)
+if not memory.chat_memory.messages:
+    memory.chat_memory.add_user_message("You're a helpful AI coding tutor. Help the user with their code questions.")
+
+# ✅ FIX 2: Upload route - clear memory and inject new file content
+@app.route('/upload-analysis', methods=['POST'])
+def upload_analysis():
+    file = request.files.get('file')
+    if not file or not file.filename.endswith('.txt'):
+        return jsonify({'error': 'Please upload a valid .txt file'}), 400
+
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+    file.save(filepath)
+
+    with open(filepath, 'r') as f:
+        file_content = f.read()
+
+    memory.clear()  # ✅ Clears old chat memory
+    memory.chat_memory.add_user_message("Here's the analysis file:\n" + file_content)  # ✅ Inject file into memory
+
+    return jsonify({'message': 'File uploaded successfully!', 'start_message': 'AI is ready to tutor you now.'})
+
+
+# ✅ FIX 3: Chat route - use persistent conversation object
+@app.route('/chat', methods=['POST'])
+def chat():
+    if not request.is_json:
+        return jsonify({'error': 'Request must be JSON'}), 400
+
+    request_json = request.get_json()
+    user_input = request_json.get('message')
+    if not user_input:
+        return jsonify({'error': 'Empty message'}), 400
+
+    response = conversation.run(user_input)  # ✅ Use the global persistent memory
+    return jsonify({'response': response})
+
+
+# ✅ FIX 4: Optional code explanation route (not chatbot-specific)
+@app.route('/explain-code', methods=['POST'])
+def explain_code():
+    if not request.is_json:
+        return jsonify({'error': 'Request must be JSON'}), 400
+
+    request_json = request.get_json()
+    code = request_json.get('code')
+    if not code:
+        return jsonify({'error': 'Code not found'}), 400
+
+    prompt = PromptTemplate(
+        input_variables=["code"],
+        template="You are a coding tutor. Explain this code in simple terms with step-by-step reasoning:\n\n{code}"
+    )
+
+    chain = LLMChain(llm=llm, prompt=prompt)
+    explanation = chain.run(code)
+    return jsonify({'explanation': explanation})
+
+
+
 
 
 # --- Main Run Block ---

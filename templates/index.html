@@ -1,8 +1,12 @@
+
+
+
 {% extends "base.html" %}
 
 {% block title %}Code Ko Samjho, Coding Mein Jeeto{% endblock %}
 
 {% block content %}
+
 
     <section class="hero-section d-flex align-items-center justify-content-center text-center" id="decode-section">
         <div class="container">
@@ -98,53 +102,57 @@
                         <i class="fas fa-book-reader icon"></i>
                         <h3>Accelerated Learning</h3>
                         <p>Transform your learning curve. Get immediate, actionable insights into any code snippet, turning confusion into clarity instantly.</p>
-                    </div>
+                    </div
                 </div>
             </div>
         </div>
     </section>
 
     {# Start: Results Display Section (Initially hidden) #}
-    <section class="results-display-section py-5 d-none" id="results-display-section"> 
+    <section class="results-display-section py-5 d-none" id="results-display-section">
         <div class="container">
             <h2 class="text-center mb-5 animate__animated animate__fadeIn">Your Code Analysis: Deeper Understanding</h2>
             <div id="analysis-results-container" class="mt-4 animate__animated animate__fadeInUp">
-                {# Concept Explanation Card - Now interactive step-by-step #}
-                <div class="analysis-card-premium mb-4">
+                {# Concept Explanation - Immersive Display #}
+                <div class="analysis-card-premium mb-4 concept-explanation-immersive">
                     <div class="card-header">
                         <h3><i class="fas fa-info-circle me-3"></i>Concept Explanation</h3>
                     </div>
-                    <div class="card-body concept-stepper">
-                        <!-- Concept Steps Container -->
-                        <div class="concept-steps-container">
-                            <div class="concept-step animate__animated animate__fadeIn" id="concept-step-why">
+                    <div class="card-body concept-stepper-container">
+                        <div class="concept-display-area">
+                            {# Each concept step will be dynamically loaded here by JS #}
+                            {# Initial content will be populated by script.js after analysis #}
+                            <div class="concept-step" id="concept-step-why">
                                 <div class="concept-header">
-                                    <i class="fas fa-question-circle"></i> <strong>Why this code even exist ?</strong>
+                                    <i class="fas fa-question-circle"></i> <strong>WHY THIS CODE?</strong>
                                 </div>
                                 <div class="concept-content" id="concept-why-content"></div>
                             </div>
-
-                           
-
-                            <div class="concept-step animate__animated animate__fadeIn d-none" id="concept-step-how">
+                            <div class="concept-step d-none" id="concept-step-how">
                                 <div class="concept-header">
-                                    <i class="fas fa-cogs"></i> <strong>How does it work ?</strong>
+                                    <i class="fas fa-cogs"></i> <strong>HOW DOES IT WORK?</strong>
                                 </div>
                                 <div class="concept-content" id="concept-how-content"></div>
                             </div>
-
-                            <div class="concept-step animate__animated animate__fadeIn d-none" id="concept-step-where">
+                            <div class="concept-step d-none" id="concept-step-where">
                                 <div class="concept-header">
-                                    <i class="fas fa-map-marker-alt"></i> <strong>Where is this used for ?</strong>
+                                    <i class="fas fa-map-marker-alt"></i> <strong>WHERE IT IS USED ?</strong>
                                 </div>
                                 <div class="concept-content" id="concept-where-content"></div>
                             </div>
                         </div>
 
-                        <!-- Navigation Buttons -->
-                        <div class="concept-navigation d-flex justify-content-between mt-4">
-                            <button class="btn btn-secondary concept-nav-btn" id="prev-concept-btn" disabled><i class="fas fa-arrow-left me-2"></i>Back</button>
-                            <button class="btn btn-primary concept-nav-btn" id="next-concept-btn">Next<i class="fas fa-arrow-right ms-2"></i></button>
+                        <!-- Navigation Buttons and Pagination Dots -->
+                        <div class="concept-navigation-controls d-flex flex-column align-items-center mt-4">
+                            <div class="pagination-dots mb-3">
+                                <span class="dot active" data-step="0"></span>
+                                <span class="dot" data-step="1"></span>
+                                <span class="dot" data-step="2"></span>
+                            </div>
+                            <div class="d-flex justify-content-between w-100 px-4">
+                                <button class="btn btn-secondary concept-nav-btn" id="prev-concept-btn" disabled><i class="fas fa-arrow-left me-2"></i>Back</button>
+                                <button class="btn btn-primary concept-nav-btn" id="next-concept-btn">Next<i class="fas fa-arrow-right ms-2"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
