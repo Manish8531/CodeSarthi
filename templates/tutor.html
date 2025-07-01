@@ -451,10 +451,7 @@
 
   <div class="chat-container">
     <div class="chat-header">
-      <div class="status-indicator">
-        <div class="status-dot"></div>
-        <span>Online</span>
-      </div>
+      
       <h1><i class="fas fa-robot"></i> Code Sarthi</h1>
       <div class="subtitle">Your intelligent programming companion</div>
     </div>
@@ -475,13 +472,9 @@
         <div class="input-wrapper">
           <input type="text" id="userInput" placeholder="Ask me anything about code..." maxlength="500">
           <div class="input-actions">
-            <button class="action-btn" id="attachBtn" title="Attach file">
-              <i class="fas fa-paperclip"></i>
-            </button>
+            
             <input type="file" id="fileInput" style="display: none;">
-            <button class="action-btn" id="micBtn" title="Voice input">
-              <i class="fas fa-microphone"></i>
-            </button>
+            
           </div>
         </div>
         <button class="send-btn" id="sendBtn">
@@ -504,8 +497,8 @@
         this.chatMessages = document.getElementById('chatMessages');
         this.userInput = document.getElementById('userInput');
         this.sendBtn = document.getElementById('sendBtn');
-        this.fileInput = document.getElementById('fileInput');
-        this.attachBtn = document.getElementById('attachBtn');
+        //this.fileInput = document.getElementById('fileInput');
+        //this.attachBtn = document.getElementById('attachBtn');
         this.isTyping = false;
 
         this.init();
