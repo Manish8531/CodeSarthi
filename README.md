@@ -144,7 +144,7 @@ Next goals:
 * ✅ Write a killer resume
 * 🔜 Apply to freelancing sites and jobs
 
-> "Main aaya nahi, main banaya gaya hoon — Code Sarthi style."
+> "Every Arjun needs a Lord Krishna — every coder needs a Sarthi. — Code Sarthi."
 
 ---
 
