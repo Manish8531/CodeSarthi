@@ -6,6 +6,8 @@
   <title>Code Sarthi Tutor - Premium Experience</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
   <style>
     * {
       margin: 0;
@@ -211,6 +213,15 @@
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  .message-content pre {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+}
+
     .message-content code {
     font-family: 'Fira Code', monospace;
     color: #333;
@@ -548,17 +559,26 @@
         }
       }
 
-      addMessage(content, sender) {
+     addMessage(content, sender) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
 
-        messageDiv.innerHTML = sender === 'user' ?
-          `<div class="message-content"><p>${this.escapeHtml(content)}</p></div>` :
-          `<div class="ai-avatar"><i class="fas fa-brain"></i></div><div class="message-content"><p>${content}</p></div>`;
+        if (sender === 'user') {
+          messageDiv.innerHTML = `
+            <div class="message-content"><p>${this.escapeHtml(content)}</p></div>
+          `;
+        } else {
+          const htmlContent = marked.parse(content); // content = markdown
+          messageDiv.innerHTML = `
+            <div class="ai-avatar"><i class="fas fa-brain"></i></div>
+            <div class="message-content">${htmlContent}</div>
+          `;
+        }
 
         this.chatMessages.appendChild(messageDiv);
         this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
       }
+
 
       showTypingIndicator() {
         this.isTyping = true;

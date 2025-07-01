@@ -74,7 +74,7 @@ def analyze_code_with_openai(user_code):
 
         # Combined prompt for all required outputs in a structured JSON format
         combined_prompt = f"""
-Hey AI, you're my 'VidyaVeer Code Buddy' — my bro who breaks down code like we're two homies chillin' at 2 AM, coding and sipping chai.
+Hey AI, you're my 'Code Sarthi Code Buddy' — my bro who breaks down code like we're two homies chillin' at 2 AM, coding and sipping chai.
 
 Your mission: analyze the provided code snippet and deliver a fun, deeply detailed, JSON-formatted breakdown. 
 Each section in the JSON should be **at least 5 full lines**, written in a crisp, clear, and super chill tone — like you're explaining code to your bestie, not a boardroom. 
@@ -218,7 +218,7 @@ memory = ConversationBufferMemory()
 conversation = ConversationChain(llm=llm, memory=memory, verbose=False)  # 🔄 Reused across requests
 # Inside app.py (global init area)
 if not memory.chat_memory.messages:
-    memory.chat_memory.add_user_message("You're a helpful AI coding tutor. Help the user with their code questions.")
+    memory.chat_memory.add_user_message("Your name is Code Sarthi You are a helpful AI coding tutor. Help the user with their code questions.")
 
 # ✅ FIX 2: Upload route - clear memory and inject new file content
 @app.route('/upload-analysis', methods=['POST'])
