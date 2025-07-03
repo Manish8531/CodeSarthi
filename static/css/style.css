@@ -7,10 +7,10 @@
 
 :root {
   /* Color Palette */
-  --color-primary-light: #8e9cee;
+  --color-primary-light: #0926cb;
   --color-primary-dark: #667eea;
-  --color-secondary-light: #845ec2;
-  --color-secondary-dark: #764ba2;
+  --color-secondary-light: #bfbac8;
+  --color-secondary-dark: #250a41;
   --color-accent-light: #f0c545;
   --color-accent-dark: #0ce8f4;
   --color-dark-text: #2c3e50;
@@ -29,7 +29,7 @@
   --gradient-dark: linear-gradient(135deg, #2c3e50 0%, #db7134 100%);
   --gradient-text-light: linear-gradient(135deg, var(--color-white) 0%, #f8f9fa 100%);
   --gradient-bg-hero: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  --gradient-bg-body: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-secondary-dark) 50%, #f093fb 100%);
+  --gradient-bg-body: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-secondary-dark) 50%, #5f0e68 100%);
 
   /* Spacing */
   --spacing-sm: 0.5rem;
